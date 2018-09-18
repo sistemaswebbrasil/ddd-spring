@@ -1,10 +1,13 @@
 package com.siswbrasil.ddd.servico.repository;
 
 import com.siswbrasil.ddd.modelo.Pessoa;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 import java.util.Optional;
 
-public interface PessoaRepository {
-    Pessoa save(Pessoa pessoa);
+@Repository
+public interface PessoaRepository extends JpaRepository<Pessoa,Long> {
 
     Optional<Pessoa> findByCpf(String cpf);
 

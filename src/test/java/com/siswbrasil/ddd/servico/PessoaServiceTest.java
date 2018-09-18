@@ -23,10 +23,10 @@ import static org.mockito.Mockito.when;
 @RunWith(SpringRunner.class)
 public class PessoaServiceTest {
 
-    public static final String NUMERO = "999158241";
+    private static final String NUMERO = "999158241";
     private static final String NOME = "Adriano Faria Alves";
-    public static final String CPF = "12345678901";
-    public static final String DDD = "22";
+    private static final String CPF = "12345678901";
+    private static final String DDD = "22";
 
     @MockBean
     private PessoaRepository pessoaRepository;
