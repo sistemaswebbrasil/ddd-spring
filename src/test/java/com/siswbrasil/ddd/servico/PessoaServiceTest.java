@@ -6,7 +6,7 @@ import com.siswbrasil.ddd.servico.exception.TelefoneNaoEncontradoException;
 import com.siswbrasil.ddd.servico.exception.UnicidadeCpfException;
 import com.siswbrasil.ddd.servico.exception.UnicidadeTelefoneException;
 import com.siswbrasil.ddd.servico.impl.PessoaServiceImpl;
-import com.siswbrasil.ddd.servico.repository.PessoaRepository;
+import com.siswbrasil.ddd.repository.PessoaRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,6 +1,6 @@
 package com.siswbrasil.ddd;
 
-import com.siswbrasil.ddd.servico.repository.PessoaRepository;
+import com.siswbrasil.ddd.repository.PessoaRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

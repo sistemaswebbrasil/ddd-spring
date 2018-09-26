@@ -6,7 +6,7 @@ import com.siswbrasil.ddd.servico.PessoaService;
 import com.siswbrasil.ddd.servico.exception.TelefoneNaoEncontradoException;
 import com.siswbrasil.ddd.servico.exception.UnicidadeCpfException;
 import com.siswbrasil.ddd.servico.exception.UnicidadeTelefoneException;
-import com.siswbrasil.ddd.servico.repository.PessoaRepository;
+import com.siswbrasil.ddd.repository.PessoaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
