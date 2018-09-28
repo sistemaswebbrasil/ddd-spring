@@ -8,7 +8,9 @@ import com.siswbrasil.ddd.servico.exception.UnicidadeTelefoneException;
 import com.siswbrasil.ddd.servico.impl.PessoaServiceImpl;
 import com.siswbrasil.ddd.repository.PessoaRepository;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -30,6 +32,9 @@ public class PessoaServiceTest {
 
     @MockBean
     private PessoaRepository pessoaRepository;
+
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
     private PessoaService sut;
 
@@ -78,6 +83,14 @@ public class PessoaServiceTest {
 
     @Test(expected = TelefoneNaoEncontradoException.class)
     public void deve_retornar_excecao_de_nao_encontrado_quando_nao_existir_pessoa_com_o_ddd_e_numero_de_telefone_() throws Exception {
+        sut.buscarPorTelefone(telefone);
+    }
+
+    @Test
+    public void deve_retornar_dados_do_telefone_dentro_da_excecao_de_telefone_nao_encontrado_exception_() throws Exception {
+        expectedException.expect(TelefoneNaoEncontradoException.class);
+        expectedException.expectMessage("Não existe pessoa com o telefone ("+DDD+")"+NUMERO);
+
         sut.buscarPorTelefone(telefone);
     }
 

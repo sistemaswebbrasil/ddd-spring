@@ -1,5 +1,7 @@
 package com.siswbrasil.ddd.modelo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -16,8 +18,10 @@ public class Telefone {
     @Column(length = 9 , nullable = false)
     private String numero;
 
+
     @ManyToOne
     @JoinColumn(name = "codigo_pessoa")
+    @JsonIgnore
     private Pessoa pessoa;
 
     public Long getCodigo() {
