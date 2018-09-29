@@ -3,6 +3,7 @@ package com.siswbrasil.tdd.servico;
 import com.siswbrasil.tdd.modelo.Pessoa;
 import com.siswbrasil.tdd.modelo.Telefone;
 import com.siswbrasil.tdd.repository.PessoaRepository;
+import com.siswbrasil.tdd.repository.filtro.PessoaFiltro;
 import com.siswbrasil.tdd.servico.exception.TelefoneNaoEncontradoException;
 import com.siswbrasil.tdd.servico.exception.UnicidadeCpfException;
 import com.siswbrasil.tdd.servico.exception.UnicidadeTelefoneException;
@@ -15,7 +16,9 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -39,6 +42,8 @@ public class PessoaServiceTest {
     private PessoaService sut;
     private Pessoa pessoa;
     private Telefone telefone;
+    private List<Pessoa> pessoas;
+    private PessoaFiltro filtro;
 
     @Before
     public void setUp() throws Exception {
@@ -50,6 +55,11 @@ public class PessoaServiceTest {
         telefone.setDdd(DDD);
         telefone.setNumero(NUMERO);
         pessoa.setTelefones(Arrays.asList(telefone));
+
+        pessoas = new ArrayList<>();
+        pessoas.add(pessoa);
+
+        filtro = new PessoaFiltro("Adr");
     }
 
     @Test
@@ -94,5 +104,21 @@ public class PessoaServiceTest {
         assertThat(pessoaTeste).isNotNull();
         assertThat(pessoaTeste.getNome()).isEqualTo(NOME);
         assertThat(pessoaTeste.getCpf()).isEqualTo(CPF);
+    }
+
+    @Test
+    public void deve_filtrar_pelo_nome() throws Exception {
+        when(pessoaRepository.filtrar(filtro)).thenReturn(  pessoas );
+        List<Pessoa> pessoaList = sut.filtrar(filtro);
+        verify(pessoaRepository).filtrar(filtro);
+        assertThat(pessoaList).isNotNull();
+    }
+
+    @Test
+    public void deve_retornar_lista_vazia_se_filtro_nao_obtiver_resultado() throws Exception {
+        when(pessoaRepository.filtrar(filtro)).thenReturn(new ArrayList<>());
+        List<Pessoa> pessoaList = sut.filtrar(filtro);
+        verify(pessoaRepository).filtrar(filtro);
+        assertThat(pessoaList).asList();
     }
 }
