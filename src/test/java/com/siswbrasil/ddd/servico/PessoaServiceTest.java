@@ -2,11 +2,11 @@ package com.siswbrasil.ddd.servico;
 
 import com.siswbrasil.ddd.modelo.Pessoa;
 import com.siswbrasil.ddd.modelo.Telefone;
+import com.siswbrasil.ddd.repository.PessoaRepository;
 import com.siswbrasil.ddd.servico.exception.TelefoneNaoEncontradoException;
 import com.siswbrasil.ddd.servico.exception.UnicidadeCpfException;
 import com.siswbrasil.ddd.servico.exception.UnicidadeTelefoneException;
 import com.siswbrasil.ddd.servico.impl.PessoaServiceImpl;
-import com.siswbrasil.ddd.repository.PessoaRepository;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -37,47 +37,40 @@ public class PessoaServiceTest {
     public ExpectedException expectedException = ExpectedException.none();
 
     private PessoaService sut;
-
     private Pessoa pessoa;
     private Telefone telefone;
 
     @Before
     public void setUp() throws Exception {
         sut = new PessoaServiceImpl(pessoaRepository);
-
         pessoa = new Pessoa();
         pessoa.setNome(NOME);
         pessoa.setCpf(CPF);
-
         telefone = new Telefone();
         telefone.setDdd(DDD);
         telefone.setNumero(NUMERO);
-
         pessoa.setTelefones(Arrays.asList(telefone));
-
-        //when(pessoaRepository.findByCpf(CPF)).thenReturn(Optional.empty());
-        //when(pessoaRepository.findByTelefoneDddAndTelefoneNumero(DDD,NUMERO)).thenReturn(Optional.empty());
     }
 
     @Test
     public void deve_salvar_pessoa_no_repositorio() throws Exception {
         sut.salvar(pessoa);
-
         verify(pessoaRepository).save(pessoa);
     }
 
-    @Test(expected = UnicidadeCpfException.class)
-    public void nao_deve_salvar_duas_pessoas_com_o_mesmo_cpf() throws  Exception {
-
+    @Test
+    public void nao_deve_salvar_duas_pessoas_com_o_mesmo_cpf() throws Exception {
         when(pessoaRepository.findByCpf(CPF)).thenReturn(Optional.of(pessoa));
+
+        expectedException.expect(UnicidadeCpfException.class);
+        expectedException.expectMessage("Já existe pessoa cadastrada com o CPF '"+ CPF +"'");
 
         sut.salvar(pessoa);
     }
 
     @Test(expected = UnicidadeTelefoneException.class)
     public void nao_deve_salvar_duas_pessoas_com_o_mesmo_telefone() throws Exception {
-        when(pessoaRepository.findByTelefoneDddAndTelefoneNumero(DDD,NUMERO)).thenReturn(Optional.of(pessoa));
-
+        when(pessoaRepository.findByTelefoneDddAndTelefoneNumero(DDD, NUMERO)).thenReturn(Optional.of(pessoa));
         sut.salvar(pessoa);
     }
 
@@ -89,22 +82,17 @@ public class PessoaServiceTest {
     @Test
     public void deve_retornar_dados_do_telefone_dentro_da_excecao_de_telefone_nao_encontrado_exception_() throws Exception {
         expectedException.expect(TelefoneNaoEncontradoException.class);
-        expectedException.expectMessage("Não existe pessoa com o telefone ("+DDD+")"+NUMERO);
-
+        expectedException.expectMessage("Não existe pessoa com o telefone (" + DDD + ")" + NUMERO);
         sut.buscarPorTelefone(telefone);
     }
 
     @Test
     public void deve_produrar_pessoa_pelodd_e_numero_do_telefone() throws Exception {
-        when(pessoaRepository.findByTelefoneDddAndTelefoneNumero(DDD,NUMERO)).thenReturn(Optional.of(pessoa));
-
+        when(pessoaRepository.findByTelefoneDddAndTelefoneNumero(DDD, NUMERO)).thenReturn(Optional.of(pessoa));
         Pessoa pessoaTeste = sut.buscarPorTelefone(telefone);
-
-        verify(pessoaRepository).findByTelefoneDddAndTelefoneNumero(DDD,NUMERO);
-
+        verify(pessoaRepository).findByTelefoneDddAndTelefoneNumero(DDD, NUMERO);
         assertThat(pessoaTeste).isNotNull();
         assertThat(pessoaTeste.getNome()).isEqualTo(NOME);
         assertThat(pessoaTeste.getCpf()).isEqualTo(CPF);
-
     }
 }

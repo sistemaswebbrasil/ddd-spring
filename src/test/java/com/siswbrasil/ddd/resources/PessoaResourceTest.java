@@ -1,10 +1,17 @@
 package com.siswbrasil.ddd.resources;
 
 import com.siswbrasil.ddd.DddApplicationTests;
+import com.siswbrasil.ddd.modelo.Pessoa;
+import com.siswbrasil.ddd.modelo.Telefone;
+import com.siswbrasil.ddd.repository.filtro.PessoaFiltro;
+import io.restassured.http.ContentType;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
 
+import java.util.Arrays;
+
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.IsEqual.equalTo;
 
 public class PessoaResourceTest extends DddApplicationTests {
@@ -37,5 +44,111 @@ public class PessoaResourceTest extends DddApplicationTests {
                 .log().body().and()
                 .statusCode(HttpStatus.NOT_FOUND.value())
                 .body("erro", equalTo("Não existe pessoa com o telefone (99)99158241"));
+    }
+
+    @Test
+    public void deve_salvar_nova_pessoa_no_sistema() throws Exception {
+        final Pessoa pessoa = new Pessoa();
+        pessoa.setNome("Lorenzo");
+        pessoa.setCpf("62461410720");
+
+
+        final Telefone telefone = new Telefone();
+        telefone.setDdd("79");
+        telefone.setNumero("36977168");
+
+        pessoa.setTelefones(Arrays.asList(telefone));
+
+        given()
+                .request()
+                .header("Accept", ContentType.ANY)
+                .header("Content-Type", ContentType.JSON)
+                .body(pessoa)
+                .when()
+                .post("/pessoas")
+                .then()
+                .log().headers()
+                .and()
+                .log().body()
+                .and()
+                .statusCode(HttpStatus.CREATED.value())
+                .headers("Location", equalTo("http://localhost:" + porta + "/pessoas/79/36977168"))
+                .body("codigo", equalTo(6),
+                        "nome", equalTo("Lorenzo"),
+                        "cpf", equalTo("62461410720"));
+    }
+
+    @Test
+    public void nao_deve_salvar_duas_pessoas_com_o_mesmo_cpf() throws Exception {
+        final Pessoa pessoa = new Pessoa();
+        pessoa.setNome("Lorenzo");
+        pessoa.setCpf("72788740417");
+
+
+        final Telefone telefone = new Telefone();
+        telefone.setDdd("79");
+        telefone.setNumero("36977168");
+
+        pessoa.setTelefones(Arrays.asList(telefone));
+
+        given()
+                .request()
+                .header("Accept", ContentType.ANY)
+                .header("Content-Type", ContentType.JSON)
+                .body(pessoa)
+                .when()
+                .post("/pessoas")
+                .then()
+                .log().body()
+                .and()
+                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .body("erro", equalTo("Já existe pessoa cadastrada com o CPF '72788740417'"));
+    }
+
+    @Test
+    public void nao_deve_salvar_duas_pessoas_com_o_mesmo_telefone() throws Exception {
+        final Pessoa pessoa = new Pessoa();
+        pessoa.setNome("Adriano");
+        pessoa.setCpf("10225134780");
+
+        final Telefone telefone = new Telefone();
+        telefone.setDdd("82");
+        telefone.setNumero("39945903");
+
+        pessoa.setTelefones(Arrays.asList(telefone));
+
+        given()
+                .request()
+                .header("Accept", ContentType.ANY)
+                .header("Content-Type", ContentType.JSON)
+                .body(pessoa)
+                .when()
+                .post("/pessoas")
+                .then()
+                .log().body()
+                .and()
+                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .body("erro", equalTo("Já existe pessoa cadastrada com o telefone (82)39945903"));
+    }
+
+    @Test
+    public void deve_filtrar_pelo_nome() throws Exception {
+        final PessoaFiltro filtro = new PessoaFiltro();
+        filtro.setNome("a");
+
+        given()
+                .request()
+                .header("Accept", ContentType.ANY)
+                .header("Content-Type", ContentType.JSON)
+                .body(filtro)
+                .post("/pessoas/filtrar")
+                .then()
+                .log().body()
+                .and()
+                .statusCode(HttpStatus.OK.value())
+                .body("codigo", containsInAnyOrder(1, 3, 5),
+                        "nome", containsInAnyOrder("Thiago", "Iago", "Cauê"),
+                        "cpf", containsInAnyOrder("72788740417", "38767897100", "86730543540"));
+
     }
 }
