@@ -18,7 +18,7 @@ public class PessoaResourceTest extends DddApplicationTests {
 
 
     @Test
-    public void deve_procurar_pessoa_pelo_ddd_e_numero() throws Exception {
+    public void deve_procurar_pessoa_pelo_ddd_e_numero() {
         given()
                 .pathParam("ddd", "86")
                 .pathParam("numero", "35006330")
@@ -35,7 +35,7 @@ public class PessoaResourceTest extends DddApplicationTests {
     }
 
     @Test
-    public void deve_retornar_erro_nao_encontrado_quando_buscar_pessoa_por_telefone_inexistente() throws Exception {
+    public void deve_retornar_erro_nao_encontrado_quando_buscar_pessoa_por_telefone_inexistente() {
         given()
                 .pathParam("ddd", "99")
                 .pathParam("numero", "99158241")
@@ -47,8 +47,9 @@ public class PessoaResourceTest extends DddApplicationTests {
     }
 
     @Test
-    public void deve_salvar_nova_pessoa_no_sistema() throws Exception {
+    public void deve_salvar_nova_pessoa_no_sistema() {
         final Pessoa pessoa = new Pessoa();
+        pessoa.setCodigo(333L);
         pessoa.setNome("Lorenzo");
         pessoa.setCpf("62461410720");
 
@@ -73,13 +74,14 @@ public class PessoaResourceTest extends DddApplicationTests {
                 .and()
                 .statusCode(HttpStatus.CREATED.value())
                 .headers("Location", equalTo("http://localhost:" + porta + "/pessoas/79/36977168"))
-                .body("codigo", equalTo(6),
+                .body(
+                        "codigo", equalTo(6),
                         "nome", equalTo("Lorenzo"),
                         "cpf", equalTo("62461410720"));
     }
 
     @Test
-    public void nao_deve_salvar_duas_pessoas_com_o_mesmo_cpf() throws Exception {
+    public void nao_deve_salvar_duas_pessoas_com_o_mesmo_cpf() {
         final Pessoa pessoa = new Pessoa();
         pessoa.setNome("Lorenzo");
         pessoa.setCpf("72788740417");
@@ -106,7 +108,7 @@ public class PessoaResourceTest extends DddApplicationTests {
     }
 
     @Test
-    public void nao_deve_salvar_duas_pessoas_com_o_mesmo_telefone() throws Exception {
+    public void nao_deve_salvar_duas_pessoas_com_o_mesmo_telefone() {
         final Pessoa pessoa = new Pessoa();
         pessoa.setNome("Adriano");
         pessoa.setCpf("10225134780");
@@ -132,7 +134,7 @@ public class PessoaResourceTest extends DddApplicationTests {
     }
 
     @Test
-    public void deve_filtrar_pelo_nome() throws Exception {
+    public void deve_filtrar_pelo_nome() {
         final PessoaFiltro filtro = new PessoaFiltro();
         filtro.setNome("a");
 
@@ -146,7 +148,8 @@ public class PessoaResourceTest extends DddApplicationTests {
                 .log().body()
                 .and()
                 .statusCode(HttpStatus.OK.value())
-                .body("codigo", containsInAnyOrder(1, 3, 5),
+                .body(
+                        "codigo", containsInAnyOrder(1, 3, 5),
                         "nome", containsInAnyOrder("Thiago", "Iago", "Cauê"),
                         "cpf", containsInAnyOrder("72788740417", "38767897100", "86730543540"));
 

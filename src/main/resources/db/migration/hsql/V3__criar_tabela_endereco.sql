@@ -1,7 +1,5 @@
-CREATE SEQUENCE IF NOT EXISTS endereco_id_seq start with 1  ;
-
 create table endereco (
-   codigo bigint default endereco_id_seq.nextval ,
+   codigo bigint auto_increment primary key ,
     bairro varchar(255),
     cidade varchar(255),
     complemento varchar(255),

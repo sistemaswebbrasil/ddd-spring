@@ -1,13 +1,10 @@
 package com.siswbrasil.ddd;
 
-import com.siswbrasil.ddd.repository.PessoaRepository;
 import io.restassured.RestAssured;
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -23,7 +20,7 @@ public abstract class DddApplicationTests {
     protected  int porta;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         RestAssured.port = porta;
     }
 }
