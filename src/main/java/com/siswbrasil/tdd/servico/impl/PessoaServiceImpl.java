@@ -3,12 +3,14 @@ package com.siswbrasil.tdd.servico.impl;
 import com.siswbrasil.tdd.modelo.Pessoa;
 import com.siswbrasil.tdd.modelo.Telefone;
 import com.siswbrasil.tdd.repository.PessoaRepository;
+import com.siswbrasil.tdd.repository.filtro.PessoaFiltro;
 import com.siswbrasil.tdd.servico.PessoaService;
 import com.siswbrasil.tdd.servico.exception.TelefoneNaoEncontradoException;
 import com.siswbrasil.tdd.servico.exception.UnicidadeCpfException;
 import com.siswbrasil.tdd.servico.exception.UnicidadeTelefoneException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -45,5 +47,11 @@ public class PessoaServiceImpl implements PessoaService {
     public Pessoa buscarPorTelefone(Telefone telefone) throws TelefoneNaoEncontradoException {
         Optional<Pessoa> optional = pessoaRepository.findByTelefoneDddAndTelefoneNumero(telefone.getDdd(), telefone.getNumero());
         return optional.orElseThrow(() -> new TelefoneNaoEncontradoException("Não existe pessoa com o telefone (" + telefone.getDdd() + ")" + telefone.getNumero()));
+    }
+
+    @Override
+    public List<Pessoa> filtrar(PessoaFiltro filtro) {
+        List<Pessoa> pessoas = pessoaRepository.filtrar(filtro);
+        return pessoas;
     }
 }

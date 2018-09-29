@@ -7,6 +7,20 @@ public class PessoaFiltro {
     private String ddd;
     private String telefone;
 
+    public PessoaFiltro() {
+    }
+
+    public PessoaFiltro(String nome) {
+        this.nome = nome;
+    }
+
+    public PessoaFiltro(String nome, String cpf, String ddd, String telefone) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.ddd = ddd;
+        this.telefone = telefone;
+    }
+
     public String getNome() {
         return nome;
     }
