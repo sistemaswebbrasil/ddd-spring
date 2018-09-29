@@ -1,4 +1,4 @@
-package com.siswbrasil.ddd.repository.filtro;
+package com.siswbrasil.tdd.repository.filtro;
 
 public class PessoaFiltro {
 

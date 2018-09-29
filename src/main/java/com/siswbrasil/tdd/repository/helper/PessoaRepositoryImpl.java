@@ -1,7 +1,7 @@
-package com.siswbrasil.ddd.repository.helper;
+package com.siswbrasil.tdd.repository.helper;
 
-import com.siswbrasil.ddd.modelo.Pessoa;
-import com.siswbrasil.ddd.repository.filtro.PessoaFiltro;
+import com.siswbrasil.tdd.modelo.Pessoa;
+import com.siswbrasil.tdd.repository.filtro.PessoaFiltro;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 

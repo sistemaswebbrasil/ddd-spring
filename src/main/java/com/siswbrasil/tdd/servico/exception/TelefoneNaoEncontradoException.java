@@ -1,4 +1,4 @@
-package com.siswbrasil.ddd.servico.exception;
+package com.siswbrasil.tdd.servico.exception;
 
 public class TelefoneNaoEncontradoException extends Exception {
     public TelefoneNaoEncontradoException(String message) {

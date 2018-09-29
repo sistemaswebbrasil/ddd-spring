@@ -1,8 +1,7 @@
-package com.siswbrasil.ddd.repository;
+package com.siswbrasil.tdd.repository;
 
-import com.siswbrasil.ddd.modelo.Pessoa;
-import com.siswbrasil.ddd.repository.PessoaRepository;
-import com.siswbrasil.ddd.repository.filtro.PessoaFiltro;
+import com.siswbrasil.tdd.modelo.Pessoa;
+import com.siswbrasil.tdd.repository.filtro.PessoaFiltro;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

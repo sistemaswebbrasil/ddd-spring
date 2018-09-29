@@ -1,4 +1,4 @@
-package com.siswbrasil.ddd;
+package com.siswbrasil.tdd;
 
 import io.restassured.RestAssured;
 import org.junit.Before;
@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource("classpath:application-test.properties")
-public abstract class DddApplicationTests {
+public abstract class TddApplicationTests {
 
     @Value("${local.server.port}")
     protected  int porta;

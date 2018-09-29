@@ -1,9 +1,9 @@
-package com.siswbrasil.ddd.resources;
+package com.siswbrasil.tdd.resources;
 
-import com.siswbrasil.ddd.DddApplicationTests;
-import com.siswbrasil.ddd.modelo.Pessoa;
-import com.siswbrasil.ddd.modelo.Telefone;
-import com.siswbrasil.ddd.repository.filtro.PessoaFiltro;
+import com.siswbrasil.tdd.TddApplicationTests;
+import com.siswbrasil.tdd.modelo.Pessoa;
+import com.siswbrasil.tdd.modelo.Telefone;
+import com.siswbrasil.tdd.repository.filtro.PessoaFiltro;
 import io.restassured.http.ContentType;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
@@ -14,7 +14,7 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.IsEqual.equalTo;
 
-public class PessoaResourceTest extends DddApplicationTests {
+public class PessoaResourceTest extends TddApplicationTests {
 
 
     @Test

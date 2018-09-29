@@ -1,12 +1,12 @@
-package com.siswbrasil.ddd.servico.impl;
+package com.siswbrasil.tdd.servico.impl;
 
-import com.siswbrasil.ddd.modelo.Pessoa;
-import com.siswbrasil.ddd.modelo.Telefone;
-import com.siswbrasil.ddd.repository.PessoaRepository;
-import com.siswbrasil.ddd.servico.PessoaService;
-import com.siswbrasil.ddd.servico.exception.TelefoneNaoEncontradoException;
-import com.siswbrasil.ddd.servico.exception.UnicidadeCpfException;
-import com.siswbrasil.ddd.servico.exception.UnicidadeTelefoneException;
+import com.siswbrasil.tdd.modelo.Pessoa;
+import com.siswbrasil.tdd.modelo.Telefone;
+import com.siswbrasil.tdd.repository.PessoaRepository;
+import com.siswbrasil.tdd.servico.PessoaService;
+import com.siswbrasil.tdd.servico.exception.TelefoneNaoEncontradoException;
+import com.siswbrasil.tdd.servico.exception.UnicidadeCpfException;
+import com.siswbrasil.tdd.servico.exception.UnicidadeTelefoneException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

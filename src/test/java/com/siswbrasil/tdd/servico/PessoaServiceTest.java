@@ -1,12 +1,12 @@
-package com.siswbrasil.ddd.servico;
+package com.siswbrasil.tdd.servico;
 
-import com.siswbrasil.ddd.modelo.Pessoa;
-import com.siswbrasil.ddd.modelo.Telefone;
-import com.siswbrasil.ddd.repository.PessoaRepository;
-import com.siswbrasil.ddd.servico.exception.TelefoneNaoEncontradoException;
-import com.siswbrasil.ddd.servico.exception.UnicidadeCpfException;
-import com.siswbrasil.ddd.servico.exception.UnicidadeTelefoneException;
-import com.siswbrasil.ddd.servico.impl.PessoaServiceImpl;
+import com.siswbrasil.tdd.modelo.Pessoa;
+import com.siswbrasil.tdd.modelo.Telefone;
+import com.siswbrasil.tdd.repository.PessoaRepository;
+import com.siswbrasil.tdd.servico.exception.TelefoneNaoEncontradoException;
+import com.siswbrasil.tdd.servico.exception.UnicidadeCpfException;
+import com.siswbrasil.tdd.servico.exception.UnicidadeTelefoneException;
+import com.siswbrasil.tdd.servico.impl.PessoaServiceImpl;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

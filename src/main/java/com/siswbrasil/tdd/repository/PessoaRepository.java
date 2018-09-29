@@ -1,7 +1,7 @@
-package com.siswbrasil.ddd.repository;
+package com.siswbrasil.tdd.repository;
 
-import com.siswbrasil.ddd.modelo.Pessoa;
-import com.siswbrasil.ddd.repository.helper.PessoaRepositoryQueries;
+import com.siswbrasil.tdd.modelo.Pessoa;
+import com.siswbrasil.tdd.repository.helper.PessoaRepositoryQueries;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

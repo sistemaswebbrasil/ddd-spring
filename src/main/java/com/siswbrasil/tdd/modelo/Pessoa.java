@@ -1,4 +1,4 @@
-package com.siswbrasil.ddd.modelo;
+package com.siswbrasil.tdd.modelo;
 
 import javax.persistence.*;
 import java.util.List;
